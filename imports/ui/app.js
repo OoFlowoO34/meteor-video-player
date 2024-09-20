@@ -1,96 +1,22 @@
-// import { Texts } from '../../imports/api/texts.js';
-// import { Template } from 'meteor/templating';
-// import { Meteor } from 'meteor/meteor';
-
-// import './app.html';
-
-// Meteor.subscribe('texts');
-
-// // Publie les textes dans le template
-// Template.body.helpers({
-//   texts() {
-//     return Texts.find({});
-//   }
-// });
-
-// // Gestion de l'événement de soumission du formulaire
-// Template.textForm.events({
-//   'submit .new-text'(event) {
-//     event.preventDefault();
-
-//     const target = event.target;
-//     const videoFile = target.video.files[0];  // Récupérer le fichier vidéo
-
-//     if (videoFile) {
-//       const reader = new FileReader();
-//       // Lire le fichier vidéo en tant que buffer
-//       reader.onload = function (e) {
-//         const videoData = e.target.result;
-//         console.log(videoFile.name) 
-
-
-//         // Appeler une méthode serveur pour traiter la vidéo et extraire le texte
-//         Meteor.call('texts.extractFromVideo', videoData, videoFile.name, (error, result) => {
-//           if (error) {
-//             console.error("Erreur lors de l'extraction du texte :", error);
-//           } else {
-//             console.log("Texte extrait avec succès :", videoFile.name);
-//           }
-//         });
-//       };
-
-//       reader.readAsDataURL(videoFile);  // Lire la vidéo en tant qu'URL de données
-//     }
-//   },
-// });
-
-
-
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Videos } from '../api/files.js';
 import { Meteor } from 'meteor/meteor';
+import { videoPlayerPath } from './states/states.js';
 
 import './app.html';
+
 // import './videoList.html';
+
+import VideoPlayerReact from './components/react/videoPlayerReact.jsx';
 
 // Souscription aux vidéos
 Meteor.subscribe('videos');
 
 // Publie les vidéos dans le template
-Template.videoList.helpers({
-    videos() {
-        console.log("Videos.find().get()",Videos.find().get())
-        return Videos.find().get(); // Use fetch() to convert cursor to array
-    }
+Template.videoList.onCreated(function () {
+  this.videoPlayerPath = new ReactiveVar('');
 });
-
-// Template.videoList.onCreated(function() {
-//     this.subscribe('videos');
-// });
-  
-
-// Template.videoList.helpers({
-// videos() {
-//     return Videos.find();
-// }
-// });
-  
-
-// // Sample video data
-// const sampleVideos = [
-//     { name: 'Sample Video 1', url: 'http://example.com/video1.mp4' },
-//     { name: 'Sample Video 2', url: 'http://example.com/video2.mp4' },
-//     { name: 'Sample Video 3', url: 'http://example.com/video3.mp4' }
-//   ];
-  
-//   // Publie les vidéos dans le template
-//   Template.body.helpers({
-//     videos() {
-//       return sampleVideos; // Return the static array of videos
-//     }
-// });
-  
 
 // Création d'une ReactiveVar pour suivre l'état de l'upload
 Template.videoForm.onCreated(function () {
@@ -152,28 +78,43 @@ Template.videoForm.events({
   },
 });
 
-
 Template.videoList.events({
-    'click .list-group-item'(event) {
-      // Récupérer le chemin de la vidéo à partir de l'attribut de données
-      const videoPath = event.currentTarget.getAttribute('data-video-path');
-      console.log("videoPath",videoPath)
+  'click .list-group-item'(event, template) {
+    // Récupérer le chemin de la vidéo à partir de l'attribut de données
+    const videoPath = event.currentTarget.getAttribute('data-video-path');
+    console.log("videoPath", videoPath);
 
-      const regex = /videos\/(.*)/;
-      const match = videoPath.match(regex);
+    const regex = /videos\/(.*)/;
+    const match = videoPath.match(regex);
 
-      console.log("match",match[1])
-      const videoPlayerPath = "videos/" + match[1];
+    console.log("match", match[1]);
+    const videoPlayerPath1 = "videos/" + match[1];
 
-      console.log("videoPlayerPath",videoPlayerPath)
+    console.log("videoPlayerPath", videoPlayerPath1);
 
-      // Mettre à jour la source du lecteur vidéo
-      const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.src = videoPlayerPath;
+    // Mettre à jour la ReactiveVar videoPlayerPath
+    
+    videoPlayerPath.set(videoPlayerPath1);
+    console.log("template.videoPlayerPath.get()",  template.videoPlayerPath.get());
+    console.log("Template.instance().videoPlayerPath.get()",  Template.instance().videoPlayerPath.get());
+
+    
+  }
+});
 
 
-      // Assurez-vous que le lecteur vidéo se met à jour correctement
-      videoPlayer.load();
-      videoPlayer.play();
-    }
-  });
+Template.videoPlayerReact.helpers({
+  VideoPlayerReact() {
+    return VideoPlayerReact;
+  },
+  prop() {
+    return Template.instance().videoPlayerPath.get();
+  }
+});
+
+Template.videoList.helpers({
+  videos() {
+    console.log("Videos.find().get()", Videos.find().get());
+    return Videos.find().get(); // Use fetch() to convert cursor to array
+  },
+});

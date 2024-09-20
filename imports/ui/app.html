@@ -3,11 +3,10 @@
     <div class="container mt-4">
         <h1>Fist steps videomenthe</h1>
         {{> videoForm}}
-    
         <div class="row">
           <!-- Video Player Column -->
           <div class="col-md-8">
-            {{> videoPlayer}}
+            {{> videoPlayerReact}}
           </div>
     
           <!-- Video List Column -->
@@ -40,17 +39,8 @@
     </form>
 </template>
 
-
-<template name="videoPlayer">
-    <div class="mt-4">
-      <h2>Lecteur vidéo</h2>
-      <video id="videoPlayer" class="w-100" controls>
-          <source src="" type="video/mp4">
-          Your browser does not support the video tag.
-      </video>
-    </div>
+<template name="videoPlayerReact">
+  <div id="react-container">
+    {{> React component=VideoPlayerReact}}
+  </div>
 </template>
-
-
-
-
