@@ -1,0 +1,56 @@
+
+<body>
+    <div class="container mt-4">
+        <h1>Fist steps videomenthe</h1>
+        {{> videoForm}}
+    
+        <div class="row">
+          <!-- Video Player Column -->
+          <div class="col-md-8">
+            {{> videoPlayer}}
+          </div>
+    
+          <!-- Video List Column -->
+          <div class="col-md-4">
+            {{> videoList}}
+          </div>
+        </div>
+      </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+<template name="videoList">
+    <h2 class="my-4">Vos vidéos</h2>
+    <div class="list-group">
+      {{#each videos}} 
+        <a href="#" class="list-group-item list-group-item-action" data-video-path="{{path}}">
+          {{name}}
+        </a> 
+      {{/each}}
+    </div>
+</template>
+
+<template name="videoForm">
+    <form class="new-video mt-4">
+      <div class="mb-3">
+        <label for="videoFile" class="form-label">Sélectionnez une vidéo</label>
+        <input type="file" id="videoFile" name="video" accept="video/*" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Ajouter vidéo</button>
+    </form>
+</template>
+
+
+<template name="videoPlayer">
+    <div class="mt-4">
+      <h2>Lecteur vidéo</h2>
+      <video id="videoPlayer" class="w-100" controls>
+          <source src="" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+    </div>
+</template>
+
+
+
+
