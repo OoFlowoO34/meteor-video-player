@@ -1,0 +1,10 @@
+<template name="videoList">
+    <h2 class="my-4">Vos vidéos</h2>
+    <div class="list-group">
+      {{#each videos}} 
+        <a href="#" class="list-group-item list-group-item-action" data-video-path="{{path}}">
+          {{name}}
+        </a> 
+      {{/each}}
+    </div>
+  </template>

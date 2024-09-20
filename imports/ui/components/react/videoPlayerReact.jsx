@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { videoPlayerPath } from '../../states/states';
 import { useTracker } from 'meteor/react-meteor-data';
 

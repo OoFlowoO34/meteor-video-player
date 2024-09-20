@@ -5,7 +5,9 @@ import { Meteor } from 'meteor/meteor';
 import { videoPlayerPath } from './states/states.js';
 
 import './app.html';
-
+import './components/blaze/videoList/videoList.js';
+import './components/blaze/videoForm/videoForm.js';
+import './components/blaze/videoPlayer/videoPlayer.js';
 // import './videoList.html';
 
 import VideoPlayerReact from './components/react/videoPlayerReact.jsx';

@@ -17,30 +17,3 @@
       </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-
-<template name="videoList">
-    <h2 class="my-4">Vos vidéos</h2>
-    <div class="list-group">
-      {{#each videos}} 
-        <a href="#" class="list-group-item list-group-item-action" data-video-path="{{path}}">
-          {{name}}
-        </a> 
-      {{/each}}
-    </div>
-</template>
-
-<template name="videoForm">
-    <form class="new-video mt-4">
-      <div class="mb-3">
-        <label for="videoFile" class="form-label">Sélectionnez une vidéo</label>
-        <input type="file" id="videoFile" name="video" accept="video/*" class="form-control" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Ajouter vidéo</button>
-    </form>
-</template>
-
-<template name="videoPlayerReact">
-  <div id="react-container">
-    {{> React component=VideoPlayerReact}}
-  </div>
-</template>
