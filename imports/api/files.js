@@ -10,7 +10,7 @@ export const Videos = new FilesCollection({
 
   onBeforeUpload(file) {
     // Limit file size to 50MB and accept only video files
-    if (file.size <= 50 * 1024 * 1024 && /video/i.test(file.type)) {
+    if (file.size <= 500 * 1024 * 1024 && /video/i.test(file.type)) {
       return true;
     }
     return 'Only videos less than 50MB are allowed.';

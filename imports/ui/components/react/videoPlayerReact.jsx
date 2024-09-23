@@ -10,7 +10,7 @@ const VideoPlayerReact = () => {
       videoPlayer.load();
       videoPlayer.play();
 
-  }, [videoPath]);  // L'effet est déclenché quand videoPath change
+  }, [videoPath]); 
 
   return (
     <div className="mt-4">

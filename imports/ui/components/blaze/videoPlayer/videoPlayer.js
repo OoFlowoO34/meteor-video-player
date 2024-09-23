@@ -5,8 +5,5 @@ import './videoPlayer.html';
 Template.videoPlayerReact.helpers({
   VideoPlayerReact() {
     return VideoPlayerReact;
-  },
-  prop() {
-    return Template.instance().videoPlayerPath.get();
   }
 });

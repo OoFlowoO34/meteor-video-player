@@ -6,14 +6,13 @@ Meteor.startup(() => {
 });
 
 Meteor.publish('videos', function() {
-  console.log(Videos.find().get())
   return Videos.find().cursor;
 });
 
 Meteor.methods({
-  getVideoStream(videoPath) {
-    // Remplacer par la logique qui renvoie le flux de la vidéo
-    // Ici, on retourne simplement le chemin de la vidéo
-    return videoPath;  
+  async getVideoStream(videoId) {
+    const videoArray  = await Videos.find({_id: videoId}).fetchAsync();
+    const video = videoArray[0];
+    return video.path; 
   }
 });
