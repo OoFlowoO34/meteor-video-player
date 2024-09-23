@@ -16,7 +16,7 @@ Template.videoList.events({
         const match = videoPath.match(regex);
         if (match && match[1]) {
           const videoPlayerPathRgx = "videos/" + match[1];
-          videoPlayerPath.set(videoPlayerPathRgx); // Met à jour l'état avec le chemin de la vidéo
+          videoPlayerPath.set(videoPlayerPathRgx);
         } else {
           console.error('Aucune correspondance trouvée pour le chemin de la vidéo.');
         }
